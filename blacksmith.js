@@ -136,3 +136,4 @@ COMMANDS:
 - inventory()
 - help()`;
 }
+done
