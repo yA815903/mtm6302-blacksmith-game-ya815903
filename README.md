@@ -1,6 +1,8 @@
 # mtm6302-blacksmith-game-ya815903
 Gerry Adams-Gaumont 
-040820263
+040820263 
+Ya815903 
+Blacksmith Game is a text based game where the player takes on the role of a
 
 What is Blacksmith
 Blacksmith is a simple text-based game, played entirely in the console.
