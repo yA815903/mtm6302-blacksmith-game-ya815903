@@ -1,3 +1,4 @@
+// Variables
 let fireStatus = false;
 let wood = 1;
 let gold = 10
@@ -6,6 +7,7 @@ let swordCount = 5;
 let axeCount = 3
 let weapon =[`Sword`, `Axe`];
 
+// Functions
 function fire() {
   if (fireStatus) {
     fireStatus = false;
@@ -65,3 +67,33 @@ function sell(weapon) {
     console.log('The fire is not burning, no weapon can be sold');
   }
 }
+
+
+
+/**
+ * inventory
+ * Shows the players current inventory
+ */
+
+
+/**
+ * Help Command
+ * Returns the instruction on how to play the game.
+ */
+function help () {
+  return `INSTRUCTIONS:
+  Blacksmith is a simple text base game. 
+  
+  As a blacksmith you convert ore and wood into swords and axes. You buy your resources using gold and sell your weapons for gold.
+  
+  COMMANDS:
+  - buy(item)
+  - make(item)
+  - sell(item)
+  - fire()
+  - inventory()
+  - help()`
+}
+
+// Log the help() function
+console.log(help())
