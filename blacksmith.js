@@ -40,7 +40,6 @@ function make(weapons){
 
 function sell(weapon) {
   if (fireBurning) {
-    if (weapons.includes(weapon)) {
       if (weapon === 'sword') {
         if (swordCount > 0) {
           swordCount--;
@@ -63,9 +62,6 @@ function sell(weapon) {
     } else {
       console.log('The blacksmith does not have that weapon');
     }
-  } else {
-    console.log('The fire is not burning, no weapon can be sold');
-  }
 }
 
 
