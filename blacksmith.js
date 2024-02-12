@@ -1,134 +1,67 @@
-// Define variables
-let isFireBurning = false;
-let wood = 0;
-let money = 0;
-let inventory = {
- ore: 1,
- wood: 2,
- sword: 1,
- axe: 1,
- gold: 3
-};
+let fireStatus = false;
+let wood = 1;
+let gold = 10
+let ore  = 20;
+let swordCount = 5;
+let axeCount = 3
+let weapon =[`Sword`, `Axe`];
 
-// Define functions
 function fire() {
- if (isFireBurning) {
- console.log("Stopping fire!");
- isFireBurning = false;
- } else {
- if (wood >= 1) {
- console.log("Starting fire!");
- isFireBurning = true;
- wood -= 1;
- } else {
- console.log("Not enough wood to start a fire.");
- }
- }
+  if (fireStatus) {
+    fireStatus = false;
+    console.log('Fire is out');
+  } else if (wood > 0) {
+    fireStatus = true;
+    wood = wood - 1;
+    console.log('The fire is going');
+  } else {
+    console.log("You don't have any more wood");
+  }
 }
 
 function buy(item) {
- let cost = 0;
- let itemName = "";
-
- if (item === "ore") {
- cost = 3;
- itemName = "piece of ore";
- } else if (item === "wood") {
- cost = 1;
- itemName = "piece of wood";
- } else {
- console.log("Invalid item.");
- return;
- }
-
- if (isFireBurning) {
- console.log("Cannot buy items while the fire is burning.");
- return;
- }
-
- if (money < cost) {
- console.log("Not enough money to buy a " + itemName + ".");
- return;
- }
-
- console.log("Buying a " + itemName + ".");
- money -= cost;
- inventory[item] += 1;
+  if (item === 'wood') {
+    gold = gold - 1;
+    console.log(`You bought ${item}`)
+  }
 }
 
-function make(weapon) {
- let oreNeeded = 0;
- let woodNeeded = 0;
- let weaponName = "";
-
- if (weapon === "sword") {
- oreNeeded = 2;
- woodNeeded = 1;
- weaponName = "sword";
- } else if (weapon === "axe") {
- oreNeeded = 1;
- woodNeeded = 2;
- weaponName = "axe";
- } else {
- console.log("Invalid weapon.");
- return;
- }
-
- if (!isFireBurning) {
- console.log("Cannot make weapons while the fire is not burning.");
- return;
- }
-
- if (inventory.ore < oreNeeded) {
- console.log("Not enough ore to make a " + weaponName + ".");
- return;
- }
-
- if (inventory.wood < woodNeeded) {
- console.log("Not enough wood to make a " + weaponName + ".");
- return;
- }
-
- console.log("Making a " + weaponName + ".");
- inventory.ore -= oreNeeded;
- inventory.wood -= woodNeeded;
- inventory[weapon] += 1;
+function make(weapons){
+  if (weapons ===  "sword"){
+    ore= ore - 5;
+    console.log(  `You made a sword ${weapons}`);
+  }else if (weapons === axe){
+    ore= ore- 10;
+    console.log (`You made an axe`);
+  }
 }
 
-function sell(weapon, price) {
- if (!isFireBurning) {
- console.log("Cannot sell weapons while the fire is not burning.");
- return;
- }
-
- if (inventory[weapon] < 1) {
- console.log("You do not have any " + weapon + " to sell.");
- return;
- }
-
- console.log("Selling one " + weapon + " for " + price + " pieces of gold.");
- inventory[weapon] -= 1;
- inventory.gold += price;
-}
-
-function showInventory() {
- console.log("Current inventory:");
- console.log("Ore: " + inventory.ore);
- console.log("Wood: " + inventory.wood);
- console.log("Sword: " + inventory.sword);
- console.log("Axe: " + inventory.axe);
- console.log("Gold: " + inventory.gold);
-}
-
-function help() {
- return `INSTRUCTIONS:
-Blacksmith is a simple text-based game. As a blacksmith, you convert ore and wood into swords and axes. You buy your resources using gold and sell your weapons for gold.
-
-COMMANDS:
-- fire()
-- buy(item)
-- make(item)
-- sell(item)
-- showInventory()
-- help()`;
+function sell(weapon) {
+  if (fireBurning) {
+    if (weapons.includes(weapon)) {
+      if (weapon === 'sword') {
+        if (swordCount > 0) {
+          swordCount--;
+          gold += Math.floor(Math.random() * 6) + 4;
+          console.log(`You sold a sword for ${gold} gold`);
+        } else {
+          console.log('You don\'t have any swords to sell');
+        }
+      } else if (weapon === 'axe') {
+        if (axeCount > 0) {
+          axeCount--;
+          gold += Math.floor(Math.random() * 8) + 3;
+          console.log(`You sold an axe for ${gold} gold`);
+        } else {
+          console.log('You don\'t have any axes to sell');
+        }
+      } else {
+        console.log('Unknown weapon type');
+      }
+    } else {
+      console.log('The blacksmith does not have that weapon');
+    }
+  } else {
+    console.log('The fire is not burning, no weapon can be sold');
+  }
 }
