@@ -2,8 +2,10 @@
 let fireStatus = false;
 let wood = 1;
 let gold = 10;
-let ore  = 20;
-
+let ore = 20;
+let inventory = [];
+let swordCount = 0;
+let axeCount = 0;
 
 // Functions
 function fire() {
