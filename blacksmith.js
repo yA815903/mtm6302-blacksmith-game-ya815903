@@ -2,9 +2,10 @@
 let gold = 10;
 let wood = 5;
 let ore = 3;
-let swordCount = 0;
-let axeCount = 0;
+let swordCount = 2;
+let axeCount = 3;
 let fireStatus = false;
+let price = 0
 
 // Functions
 function fire() {
@@ -36,55 +37,58 @@ function buy(item, cost, amount) {
 }
 
 
-
 function make(item) {
-  if (item === 'sword') {
-    if (ore >= 2 && wood >= 1) {
-      ore -= 2;
-      wood -= 1;
-      swordCount++;
-      return true;
-    } else {
-      return false;
-    }
-  } else if (item === 'axe') {
-    if (ore >= 1 && wood >= 2) {
-      ore -= 1;
+  if (item ===  "sword") {
+    if (wood >= 2 && gold >= 4) {
       wood -= 2;
-      axeCount++;
-      return true;
+      gold -= 4;
+      swordCount++;
+      console.log('Sword made! You now have a sword');
     } else {
-      return false;
+      console.log('Not enough resources to create a sword');
     }
-  } else {
-    return false;
+  } else if (item === "axe") {
+    if (wood >= 3 && ore >= 2) {
+      wood -= 3;
+      ore -= 2;
+      axeCountCount++;
+      console.log('axe made! You now have a axe');
+      } else {
+        console.log('Not enough resources to create a axe');
+      }
   }
 }
-
-
-function sell(item, price) {
+  
+function sell(item) {
+  let price = 0;
   if (item === 'sword') {
-    swordCount--;
-    gold += price;
-    return true;
+    price = 4;
+    gold += price * swordCount;
+    swordCount = 0;
   } else if (item === 'axe') {
-    axeCount--;
-    gold += price;
-    return true;
-  } else if (item === 'fire' && fireStatus === true) {
-    fireStatus = false;
-    gold += price;
-    return true;
-  } else {
-    return false;
+    price = 6;
+    gold += price * axeCount;
+    axeCount = 0;
   }
+  items[item]--;
+  inventory();
+  console.log(`You sold your ${item}, making ${gold - price} gold.`);
+
 }
-
-
 
 function inventory() {
-  console.log(`Inventory: ${inventory.join(', ')}`);
+  console.log(`Sword Count: ${swordCount}`);
+  console.log(`Axe Count: ${axeCount}`);
+  console.log(`Fire Status: ${fireStatus}`);
+  console.log(`Gold: ${gold}`);
 }
 
-// Log the help() function
-console.log(help());
+function help() {
+  console.log('Instructions for the game:');
+  console.log('- Use the "make" command to create items like swords and axes.');
+  console.log('- Use the "sell" command to sell items and earn gold.');
+  console.log('- Use the "inventory" command to check your current inventory.');
+  console.log('- Use the "help" command to display these instructions again.');
+}
+
+help(); // Example usage: display the instructions for the game
