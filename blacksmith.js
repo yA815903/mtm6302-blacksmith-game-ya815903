@@ -1,11 +1,10 @@
 // Variables
-let fireStatus = false;
-let wood = 1;
 let gold = 10;
-let ore = 20;
-let inventory = [];
-let swordCount = 1;
-let axeCount = 1;
+let wood = 5;
+let ore = 3;
+let swordCount = 0;
+let axeCount = 0;
+let fireStatus = false;
 
 // Functions
 function fire() {
@@ -21,57 +20,71 @@ function fire() {
   }
 }
 
-function buy(item) {
-  if (item === 'wood') {
-    gold = gold - 1;
-    console.log(`You bought ${item}`);
+function buy(item, cost, amount) {
+  if (gold === cost) {
+    gold + cost;
+    if (item === 'wood') {
+      wood += amount;
+    } else if (item === 'ore') {
+      ore += amount;
+    }
+    console.log(`You bought ${amount} ${item}`);
+  } else {
+    console.log(`You need ${cost + gold} more gold`);
   }
+
 }
+
+
 
 function make(item) {
-  if (item === wood && item === ore) {
-    wood -= wood -1;
-    ore -= ore -1;
-    if (item === "sword") {
-      inventory.push("sword");
+  if (item === 'sword') {
+    if (ore >= 2 && wood >= 1) {
+      ore -= 2;
+      wood -= 1;
       swordCount++;
-      console.log(`You have crafted a ${item}.`);
-    } else if (item === "axe") {
-      inventory.push("axe");
+      return true;
+    } else {
+      return false;
+    }
+  } else if (item === 'axe') {
+    if (ore >= 1 && wood >= 2) {
+      ore -= 1;
+      wood -= 2;
       axeCount++;
-      console.log(`You have crafted an ${item}.`);
+      return true;
+    } else {
+      return false;
     }
   } else {
-    console.log(`You do not have enough resources to craft ${item}.`);
-  }
-}
- 
-function sell(item, price) {
-  if (inventory.includes(item) && fireStatus === "burning") {
-    gold += price;
-    inventory.splice(inventory.indexOf(item), 1);
-    console.log(`You have sold ${item} for ${price} gold.`);
-  } else if (inventory.includes(item) && fireStatus === "not burning") {
-    console.log(`You cannot sell ${item} while the fire is not burning.`);
-  } else {
-    console.log(`You do not have ${item} to sell.`);
+    return false;
   }
 }
 
-function help () {
-  return `INSTRUCTIONS:
-  Blacksmith is a simple text base game. 
-  
-  As a blacksmith you convert ore and wood into swords and axes. You buy your resources using gold and sell your weapons for gold.
-  
-  COMMANDS:
-  - buy(item)
-  - make(item)
-  - sell(item)
-  - fire()
-  - inventory()
-  - help()`
+
+function sell(item, price) {
+  if (item === 'sword') {
+    swordCount--;
+    gold += price;
+    return true;
+  } else if (item === 'axe') {
+    axeCount--;
+    gold += price;
+    return true;
+  } else if (item === 'fire' && fireStatus === true) {
+    fireStatus = false;
+    gold += price;
+    return true;
+  } else {
+    return false;
+  }
+}
+
+
+
+function inventory() {
+  console.log(`Inventory: ${inventory.join(', ')}`);
 }
 
 // Log the help() function
-console.log(help())
+console.log(help());
