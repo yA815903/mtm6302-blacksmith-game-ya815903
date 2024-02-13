@@ -4,8 +4,8 @@ let wood = 1;
 let gold = 10;
 let ore = 20;
 let inventory = [];
-let swordCount = 0;
-let axeCount = 0;
+let swordCount = 1;
+let axeCount = 1;
 
 // Functions
 function fire() {
@@ -28,10 +28,10 @@ function buy(item) {
   }
 }
 
-function make(item, wood, ore) {
-  if (wood >= wood && ore >= ore) {
-    wood -= wood;
-    ore -= ore;
+function make(item) {
+  if (item === wood && item === ore) {
+    wood -= wood -1;
+    ore -= ore -1;
     if (item === "sword") {
       inventory.push("sword");
       swordCount++;
@@ -58,20 +58,6 @@ function sell(item, price) {
   }
 }
 
-
-  
-
-
-/**
- * inventory
- * Shows the players current inventory
- */
-
-
-/**
- * Help Command
- * Returns the instruction on how to play the game.
- */
 function help () {
   return `INSTRUCTIONS:
   Blacksmith is a simple text base game. 
