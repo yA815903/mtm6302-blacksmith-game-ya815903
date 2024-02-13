@@ -1,11 +1,9 @@
 // Variables
 let fireStatus = false;
 let wood = 1;
-let gold = 10
+let gold = 10;
 let ore  = 20;
-let swordCount = 5;
-let axeCount = 3
-let weapon =[`Sword`, `Axe`];
+
 
 // Functions
 function fire() {
@@ -24,46 +22,42 @@ function fire() {
 function buy(item) {
   if (item === 'wood') {
     gold = gold - 1;
-    console.log(`You bought ${item}`)
+    console.log(`You bought ${item}`);
   }
 }
 
-function make(weapons){
-  if (weapons ===  "sword"){
-    ore= ore - 5;
-    console.log(  `You made a sword ${weapons}`);
-  }else if (weapons === axe){
-    ore= ore- 10;
-    console.log (`You made an axe`);
-  }
-}
-
-function sell(weapon) {
-  if (fireBurning) {
-      if (weapon === 'sword') {
-        if (swordCount > 0) {
-          swordCount--;
-          gold += Math.floor(Math.random() * 6) + 4;
-          console.log(`You sold a sword for ${gold} gold`);
-        } else {
-          console.log('You don\'t have any swords to sell');
-        }
-      } else if (weapon === 'axe') {
-        if (axeCount > 0) {
-          axeCount--;
-          gold += Math.floor(Math.random() * 8) + 3;
-          console.log(`You sold an axe for ${gold} gold`);
-        } else {
-          console.log('You don\'t have any axes to sell');
-        }
-      } else {
-        console.log('Unknown weapon type');
-      }
-    } else {
-      console.log('The blacksmith does not have that weapon');
+function make(item, wood, ore) {
+  if (wood >= wood && ore >= ore) {
+    wood -= wood;
+    ore -= ore;
+    if (item === "sword") {
+      inventory.push("sword");
+      swordCount++;
+      console.log(`You have crafted a ${item}.`);
+    } else if (item === "axe") {
+      inventory.push("axe");
+      axeCount++;
+      console.log(`You have crafted an ${item}.`);
     }
+  } else {
+    console.log(`You do not have enough resources to craft ${item}.`);
+  }
+}
+ 
+function sell(item, price) {
+  if (inventory.includes(item) && fireStatus === "burning") {
+    gold += price;
+    inventory.splice(inventory.indexOf(item), 1);
+    console.log(`You have sold ${item} for ${price} gold.`);
+  } else if (inventory.includes(item) && fireStatus === "not burning") {
+    console.log(`You cannot sell ${item} while the fire is not burning.`);
+  } else {
+    console.log(`You do not have ${item} to sell.`);
+  }
 }
 
+
+  
 
 
 /**
